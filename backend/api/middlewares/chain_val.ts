@@ -114,3 +114,51 @@ export const createEventChain = (): ValidationChain[] => {
       .withMessage("Capacity must be an integer"),
   ];
 };
+
+export const createFindEventChain = (): ValidationChain[] => {
+  return [
+    param("title")
+      .notEmpty()
+      .withMessage("Title is required!")
+      .isString()
+      .withMessage("Title must be a string"),
+  ];
+};
+
+export const createTicket_typeChain = (): ValidationChain[] => {
+  return [
+    body("event_id")
+      .notEmpty()
+      .withMessage("Event_id is required!")
+      .isNumeric()
+      .withMessage("Event_id must be an integer"),
+    body("name")
+      .notEmpty()
+      .withMessage("Name is required!")
+      .isString()
+      .withMessage("Name must be a string")
+      .isIn(["vip", "common"])
+      .withMessage("Invalid name! Must be: vip or common"),
+    body("price")
+      .notEmpty()
+      .withMessage("Price is required!")
+      .isFloat({ min: 0 })
+      .withMessage("Price must be a positive number"),
+    body("description")
+      .optional()
+      .isString()
+      .withMessage("Description must be a string")
+      .isLength({ max: 200 })
+      .withMessage("Description cannot exceed 200 characters"),
+  ];
+};
+
+export const createFindTicket_typeChain = (): ValidationChain[] => {
+  return [
+    param("event_id")
+      .notEmpty()
+      .withMessage("Event_id is required!")
+      .isNumeric()
+      .withMessage("Event_id must be a string"),
+  ];
+};

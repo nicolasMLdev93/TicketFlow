@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createEventChain = exports.createLoginChain = exports.createRegisterChain = void 0;
+exports.createFindTicket_typeChain = exports.createTicket_typeChain = exports.createFindEventChain = exports.createEventChain = exports.createLoginChain = exports.createRegisterChain = void 0;
 const express_validator_1 = require("express-validator");
 const createRegisterChain = () => {
     return [
@@ -118,3 +118,51 @@ const createEventChain = () => {
     ];
 };
 exports.createEventChain = createEventChain;
+const createFindEventChain = () => {
+    return [
+        (0, express_validator_1.param)("title")
+            .notEmpty()
+            .withMessage("Title is required!")
+            .isString()
+            .withMessage("Title must be a string"),
+    ];
+};
+exports.createFindEventChain = createFindEventChain;
+const createTicket_typeChain = () => {
+    return [
+        (0, express_validator_1.body)("event_id")
+            .notEmpty()
+            .withMessage("Event_id is required!")
+            .isNumeric()
+            .withMessage("Event_id must be an integer"),
+        (0, express_validator_1.body)("name")
+            .notEmpty()
+            .withMessage("Name is required!")
+            .isString()
+            .withMessage("Name must be a string")
+            .isIn(["vip", "common"])
+            .withMessage("Invalid name! Must be: vip or common"),
+        (0, express_validator_1.body)("price")
+            .notEmpty()
+            .withMessage("Price is required!")
+            .isFloat({ min: 0 })
+            .withMessage("Price must be a positive number"),
+        (0, express_validator_1.body)("description")
+            .optional()
+            .isString()
+            .withMessage("Description must be a string")
+            .isLength({ max: 200 })
+            .withMessage("Description cannot exceed 200 characters"),
+    ];
+};
+exports.createTicket_typeChain = createTicket_typeChain;
+const createFindTicket_typeChain = () => {
+    return [
+        (0, express_validator_1.param)("event_id")
+            .notEmpty()
+            .withMessage("Event_id is required!")
+            .isNumeric()
+            .withMessage("Event_id must be a string"),
+    ];
+};
+exports.createFindTicket_typeChain = createFindTicket_typeChain;

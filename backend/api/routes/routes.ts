@@ -2,10 +2,37 @@ const express = require("express");
 const router = express.Router();
 
 // Imports
-const { createRegisterChain } = require("../middlewares/chain_val");
+const {
+  createRegisterChain,
+  createLoginChain,
+  createEventChain,
+} = require("../middlewares/chain_val");
+const { validate_results } = require("../middlewares/result_val");
+const { validate_token } = require("../middlewares/token_val");
+const {
+  validate_existanceUser_register,
+  validate_existanceUser_login,
+} = require("../middlewares/existance_val");
+const { register_user, login_user } = require("../controllers/controllers");
 
 // Register new user on database
-router.post("/register", createRegisterChain);
+router.post(
+  "/register",
+  createRegisterChain(),
+  validate_results,
+  validate_existanceUser_register,
+  register_user,
+);
+// Login user
+router.post(
+  "/login",
+  createLoginChain(),
+  validate_results,
+  validate_existanceUser_login,
+  login_user,
+);
+// Create Event
+router.post("/create_event", createEventChain, validate_results);
 
 module.exports = router;
 export {};

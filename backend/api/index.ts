@@ -2,23 +2,30 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-require("dotenv").config();
-const port = process.env.PORT;
-const route = require('./routes/routes')
+const path = require("path");
+
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
+
+const port = process.env.PORT; 
+const routes = require("./routes/routes");
 
 const app = express();
+app.use(morgan("dev"));        
+app.use(helmet());           
+app.use(cors());              
+app.use(express.json());    
 
-app.use(express.json());
-app.use(helmet());
-app.use(cors());
-app.use(morgan("dev"));
+// Routes
+app.use("/", routes);
 
-app.use('/',route);
-
+// Server
 app.listen(port, () => {
   try {
-    console.log(`App listening on port ${port}`);
+      console.log(`Server running on port ${port}`);
   } catch (error) {
-    console.log(`Error running server ${error}`);
+      console.log(error);
   }
 });
+

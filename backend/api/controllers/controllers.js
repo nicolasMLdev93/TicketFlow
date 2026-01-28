@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login_user = exports.register_user = void 0;
+exports.get_events = exports.create_event = exports.login_user = exports.register_user = void 0;
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
-const { users } = require("../../models");
+const { users, events } = require("../../models");
 // Register new user
 const register_user = async (req, res) => {
     const { email, password, name, surname, role } = req.body;
@@ -62,3 +62,39 @@ const login_user = async (req, res) => {
     }
 };
 exports.login_user = login_user;
+// Create new Event
+const create_event = async (req, res) => {
+    const { title, description, start_date, ending_date, location, event_producer, state, capacity, } = req.body;
+    try {
+        await events.create({
+            title: title,
+            description: description,
+            start_date: start_date,
+            ending_date: ending_date,
+            location: location,
+            event_producer: event_producer,
+            state: state,
+            capacity: capacity,
+        });
+        res.status(201).json({ message: "Event created!", success: true });
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ message: "Internal Server Error", success: false, error: error });
+    }
+};
+exports.create_event = create_event;
+// Get all Events
+const get_events = async (req, res) => {
+    try {
+        const event_result = await events.findAll();
+        res.status(200).json({ events: event_result, success: true });
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ message: "Internal Server Error", success: false, error: error });
+    }
+};
+exports.get_events = get_events;

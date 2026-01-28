@@ -10,18 +10,14 @@ export const createRegisterChain = (): ValidationChain[] => {
       .isString()
       .withMessage("Email must be a string")
       .isLength({ max: 30 })
-      .withMessage(
-        "Max length of email field must be 30 chars",
-      ),
+      .withMessage("Max length of email field must be 30 chars"),
     body("password")
       .notEmpty()
       .withMessage("The field password is required!")
       .isString()
       .withMessage("Password must be a string")
       .isLength({ max: 20 })
-      .withMessage(
-        "Max length of password field must be 20 chars",
-      ),
+      .withMessage("Max length of password field must be 20 chars"),
     body("passwordConfirmation").custom((value, { req }) => {
       if (value != req.body.password) {
         throw new Error("Passwords do not match!");
@@ -74,13 +70,47 @@ export const createLoginChain = (): ValidationChain[] => {
 
 export const createEventChain = (): ValidationChain[] => {
   return [
-    body('title'),
-    body('description'),
-    body('start_date'),
-    body('ending_date'),
-    body('location'),
-    body('event_producer'),
-    body('state'),
-    body('capacity'),
-  ]
-}
+    body("title")
+      .notEmpty()
+      .withMessage("Title is required!")
+      .isString()
+      .withMessage("Title must be a string"),
+    body("description")
+      .notEmpty()
+      .withMessage("Description is required!")
+      .isString()
+      .withMessage("Email must be a string")
+      .isLength({ max: 200 })
+      .withMessage("The max length of the description must be 200 char"),
+    body("start_date")
+      .notEmpty()
+      .withMessage("Start_date is required!")
+      .isString()
+      .withMessage("Start_date must be a string"),
+    body("ending_date")
+      .notEmpty()
+      .withMessage("Ending_date is required!")
+      .isString()
+      .withMessage("Ending_date must be a string"),
+    body("location")
+      .notEmpty()
+      .withMessage("Location is required!")
+      .isString()
+      .withMessage("Location must be a string"),
+    body("event_producer")
+      .notEmpty()
+      .withMessage("Event_producer is required!")
+      .isString()
+      .withMessage("Event_producer must be a string"),
+    body("state")
+      .notEmpty()
+      .withMessage("State is required!")
+      .isString()
+      .withMessage("State must be a string"),
+    body("capacity")
+      .notEmpty()
+      .withMessage("Capacity is required!")
+      .isNumeric()
+      .withMessage("Capacity must be an integer"),
+  ];
+};

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
-const { users } = require("../../models");
+const { users, events } = require("../../models");
 
 // Register new user
 export const register_user = async (
@@ -35,7 +35,7 @@ export const login_user = async (
   const { email, password } = req.body;
   try {
     const user_result = await users.findOne({ where: { email: email } });
-    const checked_password:boolean = await bcrypt.compareSync(
+    const checked_password: boolean = await bcrypt.compareSync(
       password,
       user_result.password,
     );
@@ -63,6 +63,55 @@ export const login_user = async (
         },
       });
     }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", success: false, error: error });
+  }
+};
+
+// Create new Event
+export const create_event = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const {
+    title,
+    description,
+    start_date,
+    ending_date,
+    location,
+    event_producer,
+    state,
+    capacity,
+  } = req.body;
+  try {
+    await events.create({
+      title: title,
+      description: description,
+      start_date: start_date,
+      ending_date: ending_date,
+      location: location,
+      event_producer: event_producer,
+      state: state,
+      capacity: capacity,
+    });
+    res.status(201).json({ message: "Event created!", success: true });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", success: false, error: error });
+  }
+};
+
+// Get all Events
+export const get_events = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    const event_result = await events.findAll();
+    res.status(200).json({ events: event_result, success: true });
   } catch (error) {
     res
       .status(500)

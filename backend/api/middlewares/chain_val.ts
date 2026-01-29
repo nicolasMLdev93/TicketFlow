@@ -159,6 +159,36 @@ export const createFindTicket_typeChain = (): ValidationChain[] => {
       .notEmpty()
       .withMessage("Event_id is required!")
       .isNumeric()
-      .withMessage("Event_id must be a string"),
+      .withMessage("Event_id must be an integer"),
+  ];
+};
+
+export const createOrderChain = (): ValidationChain[] => {
+  return [
+    body("user_id")
+      .notEmpty()
+      .withMessage("User_id is required!")
+      .isNumeric()
+      .withMessage("User_id must be an integer"),
+    body("total")
+      .notEmpty()
+      .withMessage("Total is required!")
+      .isFloat({ min: 0 })
+      .withMessage("Total must be a positive number"),
+    body("vip_count")
+      .notEmpty()
+      .withMessage("vip_count is required!")
+      .isNumeric()
+      .withMessage("vip_count must be an integer"),
+    body("common_count")
+      .notEmpty()
+      .withMessage("vip_count is required!")
+      .isNumeric()
+      .withMessage("vip_count must be an integer"),
+    body("event_id")
+      .notEmpty()
+      .withMessage("Event_id is required!")
+      .isNumeric()
+      .withMessage("Event_id must be an integer"),
   ];
 };

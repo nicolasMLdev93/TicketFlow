@@ -165,3 +165,31 @@ export const validate_existanceTicket_type_params = async (
       .json({ message: "Internal Server Error", success: false, error: error });
   }
 };
+
+export const validate_existanceUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  const { user_id } = req.body;
+  try {
+    const user_result = await users.findOne({
+      where: {
+        id:user_id
+      },
+    });
+    if (!user_result) {
+      res.status(400).json({
+        error: `The user with id ${user_id} not  exists!`,
+        success: false,
+      });
+      return;
+    } else {
+      next();
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", success: false, error: error });
+  }
+};

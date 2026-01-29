@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validate_existanceTicket_type_params = exports.validate_existanceTicket_type = exports.validate_existanceEvent_params = exports.validate_existanceEvent = exports.validate_existanceUser_login = exports.validate_existanceUser_register = void 0;
+exports.validate_existanceUser = exports.validate_existanceTicket_type_params = exports.validate_existanceTicket_type = exports.validate_existanceEvent_params = exports.validate_existanceEvent = exports.validate_existanceUser_login = exports.validate_existanceUser_register = void 0;
 const { users, events } = require("../../models");
 const { Op } = require("sequelize");
 const validate_existanceUser_register = async (req, res, next) => {
@@ -155,3 +155,29 @@ const validate_existanceTicket_type_params = async (req, res, next) => {
     }
 };
 exports.validate_existanceTicket_type_params = validate_existanceTicket_type_params;
+const validate_existanceUser = async (req, res, next) => {
+    const { user_id } = req.body;
+    try {
+        const user_result = await users.findOne({
+            where: {
+                id: user_id
+            },
+        });
+        if (!user_result) {
+            res.status(400).json({
+                error: `The user with id ${user_id} not  exists!`,
+                success: false,
+            });
+            return;
+        }
+        else {
+            next();
+        }
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ message: "Internal Server Error", success: false, error: error });
+    }
+};
+exports.validate_existanceUser = validate_existanceUser;

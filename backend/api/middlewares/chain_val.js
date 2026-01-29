@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createFindTicket_typeChain = exports.createTicket_typeChain = exports.createFindEventChain = exports.createEventChain = exports.createLoginChain = exports.createRegisterChain = void 0;
+exports.createOrderChain = exports.createFindTicket_typeChain = exports.createTicket_typeChain = exports.createFindEventChain = exports.createEventChain = exports.createLoginChain = exports.createRegisterChain = void 0;
 const express_validator_1 = require("express-validator");
 const createRegisterChain = () => {
     return [
@@ -162,7 +162,37 @@ const createFindTicket_typeChain = () => {
             .notEmpty()
             .withMessage("Event_id is required!")
             .isNumeric()
-            .withMessage("Event_id must be a string"),
+            .withMessage("Event_id must be an integer"),
     ];
 };
 exports.createFindTicket_typeChain = createFindTicket_typeChain;
+const createOrderChain = () => {
+    return [
+        (0, express_validator_1.body)("user_id")
+            .notEmpty()
+            .withMessage("User_id is required!")
+            .isNumeric()
+            .withMessage("User_id must be an integer"),
+        (0, express_validator_1.body)("total")
+            .notEmpty()
+            .withMessage("Total is required!")
+            .isFloat({ min: 0 })
+            .withMessage("Total must be a positive number"),
+        (0, express_validator_1.body)("vip_count")
+            .notEmpty()
+            .withMessage("vip_count is required!")
+            .isNumeric()
+            .withMessage("vip_count must be an integer"),
+        (0, express_validator_1.body)("common_count")
+            .notEmpty()
+            .withMessage("vip_count is required!")
+            .isNumeric()
+            .withMessage("vip_count must be an integer"),
+        (0, express_validator_1.body)("event_id")
+            .notEmpty()
+            .withMessage("Event_id is required!")
+            .isNumeric()
+            .withMessage("Event_id must be an integer"),
+    ];
+};
+exports.createOrderChain = createOrderChain;

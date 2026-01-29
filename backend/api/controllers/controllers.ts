@@ -1,7 +1,13 @@
 import { Request, Response } from "express";
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
-const { users, events, ticket_types } = require("../../models");
+const {
+  users,
+  events,
+  ticket_types,
+  orders,
+  tickets,
+} = require("../../models");
 const { Op } = require("sequelize");
 
 // Register new user
@@ -120,7 +126,7 @@ export const get_events = async (
   }
 };
 
-// Get event by name (params)
+// Get all events by title
 export const get_eventByName = async (
   req: Request,
   res: Response,
@@ -189,12 +195,10 @@ export const get_ticket_types = async (
       },
     });
     if (ticket_results.length === 0) {
-      res
-        .status(200)
-        .json({
-          message: "This event don´t have ticket_types registered yet!",
-          success: true,
-        });
+      res.status(200).json({
+        message: "This event don´t have ticket_types registered yet!",
+        success: true,
+      });
     } else {
       res.status(200).json({ ticket_types: ticket_results, success: true });
     }
@@ -203,5 +207,87 @@ export const get_ticket_types = async (
     res
       .status(500)
       .json({ message: "Internal Server Error", success: false, error: error });
+  }
+};
+
+// Get event by title
+export const get_event = async (req: Request, res: Response): Promise<void> => {
+  const { title } = req.params;
+  try {
+    const event_result = await events.findOne({
+      where: {
+        title: title,
+      },
+    });
+    res.status(200).json({ events: event_result, success: true });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", success: false, error: error });
+  }
+};
+
+// Create new order
+export const create_order = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { user_id, total, vip_count, common_count, event_id } = req.body;
+  try {
+    const new_order = await orders.create({
+      user_id: user_id,
+      purchase_date: new Date().toISOString().replace("T", " ").slice(0, 16),
+      total: total,
+      state: "confirmed",
+      payment_method: "card",
+    });
+    const order_id = new_order.id;
+    const vip_price = await ticket_types.findOne({
+      where: {
+        event_id: event_id,
+        id: 1,
+      },
+    });
+    const common_price = await ticket_types.findOne({
+      where: {
+        event_id: event_id,
+        id: 2,
+      },
+    });
+    const geterateQR = () => {
+      const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let qr = "";
+      for (let j = 0; j < 20; j++) {
+        qr += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+      }
+      return qr;
+    };
+    for (let i = 0; i < vip_count; i++) {
+      await tickets.create({
+        order_id: order_id,
+        ticket_type_id: 1,
+        issue_date: new Date().toISOString().replace("T", " ").slice(0, 16),
+        state: "confirmed",
+        price: vip_price,
+        qr_code: geterateQR(),
+      });
+    }
+    for (let i = 0; i < common_count; i++) {
+      await tickets.create({
+        order_id: order_id,
+        ticket_type_id: 2,
+        issue_date: new Date().toISOString().replace("T", " ").slice(0, 16),
+        state: "confirmed",
+        price: common_price,
+        qr_code: geterateQR(),
+      });
+    }
+    res.status(201).json({ message: "New order created!", success: true });
+  } catch (error) {
+    res.status(500).json({
+      message: "Internal Server Error",
+      success: false,
+      error: error,
+    });
   }
 };

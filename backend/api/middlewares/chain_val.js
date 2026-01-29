@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createOrderChain = exports.createFindTicket_typeChain = exports.createTicket_typeChain = exports.createFindEventChain = exports.createEventChain = exports.createLoginChain = exports.createRegisterChain = void 0;
+exports.createFindTicketsChain = exports.createOrderChain = exports.createFindTicket_typeChain = exports.createTicket_typeChain = exports.createFindEventChain = exports.createEventChain = exports.createLoginChain = exports.createRegisterChain = void 0;
 const express_validator_1 = require("express-validator");
 const createRegisterChain = () => {
     return [
@@ -82,7 +82,7 @@ const createEventChain = () => {
             .notEmpty()
             .withMessage("Description is required!")
             .isString()
-            .withMessage("Email must be a string")
+            .withMessage("Description must be a string")
             .isLength({ max: 200 })
             .withMessage("The max length of the description must be 200 char"),
         (0, express_validator_1.body)("start_date")
@@ -185,9 +185,9 @@ const createOrderChain = () => {
             .withMessage("vip_count must be an integer"),
         (0, express_validator_1.body)("common_count")
             .notEmpty()
-            .withMessage("vip_count is required!")
+            .withMessage("common_count is required!")
             .isNumeric()
-            .withMessage("vip_count must be an integer"),
+            .withMessage("common_count must be an integer"),
         (0, express_validator_1.body)("event_id")
             .notEmpty()
             .withMessage("Event_id is required!")
@@ -196,3 +196,13 @@ const createOrderChain = () => {
     ];
 };
 exports.createOrderChain = createOrderChain;
+const createFindTicketsChain = () => {
+    return [
+        (0, express_validator_1.param)("user_id")
+            .notEmpty()
+            .withMessage("Title is required!")
+            .isNumeric()
+            .withMessage("Title must be an integer"),
+    ];
+};
+exports.createFindTicketsChain = createFindTicketsChain;

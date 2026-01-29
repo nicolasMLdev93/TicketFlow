@@ -79,7 +79,7 @@ export const createEventChain = (): ValidationChain[] => {
       .notEmpty()
       .withMessage("Description is required!")
       .isString()
-      .withMessage("Email must be a string")
+      .withMessage("Description must be a string")
       .isLength({ max: 200 })
       .withMessage("The max length of the description must be 200 char"),
     body("start_date")
@@ -182,13 +182,23 @@ export const createOrderChain = (): ValidationChain[] => {
       .withMessage("vip_count must be an integer"),
     body("common_count")
       .notEmpty()
-      .withMessage("vip_count is required!")
+      .withMessage("common_count is required!")
       .isNumeric()
-      .withMessage("vip_count must be an integer"),
+      .withMessage("common_count must be an integer"),
     body("event_id")
       .notEmpty()
       .withMessage("Event_id is required!")
       .isNumeric()
       .withMessage("Event_id must be an integer"),
+  ];
+};
+
+export const createFindTicketsChain = (): ValidationChain[] => {
+  return [
+    param("user_id")
+      .notEmpty()
+      .withMessage("Title is required!")
+      .isNumeric()
+      .withMessage("Title must be an integer"),
   ];
 };

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.get_userTickets = exports.create_order = exports.get_event = exports.get_ticket_types = exports.create_ticketType = exports.get_eventByName = exports.get_events = exports.create_event = exports.login_user = exports.register_user = void 0;
+exports.cancel_ticket = exports.get_userTickets = exports.create_order = exports.get_event = exports.get_ticket_types = exports.create_ticketType = exports.get_eventByName = exports.get_events = exports.create_event = exports.login_user = exports.register_user = void 0;
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const { users, events, ticket_types, orders, tickets, } = require("../../models");
@@ -287,3 +287,22 @@ const get_userTickets = async (req, res) => {
     }
 };
 exports.get_userTickets = get_userTickets;
+// Cancel tickets with soft delete
+const cancel_ticket = async (req, res) => {
+    const { ticket_id } = req.params;
+    try {
+        const canceled_ticket = await tickets.update({ state: "canceled" }, {
+            where: {
+                id: ticket_id,
+            },
+        });
+        await canceled_ticket.increment("available_quantity", { by: 1 });
+        res.status(200).json({ message: "Ticket canceled!", success: true });
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ message: "Internal Server Error", success: false, error: error });
+    }
+};
+exports.cancel_ticket = cancel_ticket;

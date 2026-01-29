@@ -202,3 +202,14 @@ export const createFindTicketsChain = (): ValidationChain[] => {
       .withMessage("Title must be an integer"),
   ];
 };
+
+
+export const createCancelTicketsChain = (): ValidationChain[] => {
+  return [
+    param("ticket_id")
+      .notEmpty()
+      .withMessage("ticket_id is required!")
+      .isNumeric()
+      .withMessage("ticket_id must be an integer"),
+  ];
+};

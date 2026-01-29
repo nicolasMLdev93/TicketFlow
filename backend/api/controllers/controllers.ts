@@ -323,3 +323,27 @@ export const get_userTickets = async (
       .json({ message: "Internal Server Error", success: false, error: error });
   }
 };
+
+// Cancel tickets with soft delete
+export const cancel_ticket = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { ticket_id } = req.params;
+  try {
+    const canceled_ticket = await tickets.update(
+      { state: "canceled" },
+      {
+        where: {
+          id: ticket_id,
+        },
+      },
+    );
+    await canceled_ticket.increment("available_quantity", { by: 1 });
+    res.status(200).json({ message: "Ticket canceled!", success: true });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", success: false, error: error });
+  }
+};

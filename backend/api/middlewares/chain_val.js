@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createFindTicketsChain = exports.createOrderChain = exports.createFindTicket_typeChain = exports.createTicket_typeChain = exports.createFindEventChain = exports.createEventChain = exports.createLoginChain = exports.createRegisterChain = void 0;
+exports.createCancelTicketsChain = exports.createFindTicketsChain = exports.createOrderChain = exports.createFindTicket_typeChain = exports.createTicket_typeChain = exports.createFindEventChain = exports.createEventChain = exports.createLoginChain = exports.createRegisterChain = void 0;
 const express_validator_1 = require("express-validator");
 const createRegisterChain = () => {
     return [
@@ -206,3 +206,13 @@ const createFindTicketsChain = () => {
     ];
 };
 exports.createFindTicketsChain = createFindTicketsChain;
+const createCancelTicketsChain = () => {
+    return [
+        (0, express_validator_1.param)("ticket_id")
+            .notEmpty()
+            .withMessage("ticket_id is required!")
+            .isNumeric()
+            .withMessage("ticket_id must be an integer"),
+    ];
+};
+exports.createCancelTicketsChain = createCancelTicketsChain;

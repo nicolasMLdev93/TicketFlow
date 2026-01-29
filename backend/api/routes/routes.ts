@@ -12,6 +12,7 @@ const {
   createFindTicket_typeChain,
   createOrderChain,
   createFindTicketsChain,
+  createCancelTicketsChain,
 } = require("../middlewares/chain_val");
 const { validate_results } = require("../middlewares/result_val");
 // Token validator
@@ -38,6 +39,7 @@ const {
   get_event,
   create_order,
   get_userTickets,
+  cancel_ticket,
 } = require("../controllers/controllers");
 // Routes //
 // Register new user on database
@@ -94,7 +96,7 @@ router.get(
   validate_existanceTicket_type_params,
   get_ticket_types,
 );
-// Create order 
+// Create order
 router.post(
   "/create_order",
   createOrderChain(),
@@ -121,7 +123,13 @@ router.get(
   get_userTickets,
 );
 // Cancel tickets with soft delete
-// router.patch('/cancel_ticket/ticket_id')
+router.patch(
+  "/cancel_ticket/:ticket_id",
+  createCancelTicketsChain(),
+  validate_results,
+  validate_token,
+  cancel_ticket,
+);
 
 module.exports = router;
 export {};

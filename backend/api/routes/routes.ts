@@ -68,7 +68,7 @@ router.post(
   create_event,
 );
 // Get all events
-router.get("/events", validate_token, get_events);
+router.get("/events", get_events);
 // Filter events by name (with search bar in the frontend)
 router.get(
   "/event_name/:title",
@@ -92,7 +92,6 @@ router.get(
   "/ticket_type/:event_id",
   createFindTicket_typeChain(),
   validate_results,
-  validate_token,
   validate_existanceTicket_type_params,
   get_ticket_types,
 );

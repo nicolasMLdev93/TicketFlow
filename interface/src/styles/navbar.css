@@ -1,0 +1,65 @@
+.blur-navbar {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.blur-navbar.scrolled {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+}
+
+.app_icon {
+  width: 35px;
+  height: 35px;
+  margin-right: 12px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.login_btn {
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  margin-left: 15px;
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(231, 231, 231, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.login_btn:active {
+  transform: translateY(0);
+}
+
+.MuiSvgIcon-root {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 28px !important;
+  margin-right: 10px;
+  transition: color 0.3s ease;
+}
+
+.MuiSvgIcon-root:hover {
+  color: white;
+}
+
+.MuiTypography-root {
+  color: white !important;
+  font-weight: 600 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.5px;
+}
+
+.MuiToolbar-root {
+  min-height: 70px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}

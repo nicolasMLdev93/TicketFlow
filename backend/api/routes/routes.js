@@ -19,13 +19,13 @@ router.post("/login", createLoginChain(), validate_results, validate_existanceUs
 // Create Event
 router.post("/create_event", createEventChain(), validate_results, validate_token, validate_existanceEvent, create_event);
 // Get all events
-router.get("/events", validate_token, get_events);
+router.get("/events", get_events);
 // Filter events by name (with search bar in the frontend)
 router.get("/event_name/:title", createFindEventChain(), validate_results, validate_token, validate_existanceEvent_params, get_eventByName);
 // Create ticket_types
 router.post("/ticket_type", createTicket_typeChain(), validate_results, validate_token, validate_existanceTicket_type, create_ticketType);
 // Get ticket_types by event_id
-router.get("/ticket_type/:event_id", createFindTicket_typeChain(), validate_results, validate_token, validate_existanceTicket_type_params, get_ticket_types);
+router.get("/ticket_type/:event_id", createFindTicket_typeChain(), validate_results, validate_existanceTicket_type_params, get_ticket_types);
 // Create order
 router.post("/create_order", createOrderChain(), validate_results, validate_token, validate_existanceUser, create_order);
 // Get event by name

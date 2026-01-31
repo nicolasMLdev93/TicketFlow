@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
 import get_allEvents from "../connections/get_allEvents";
-import type { Events } from "../types/interfaces";
+import type { Event } from "../types/interfaces";
 import "../styles/events_comp.css";
-import event_images from '../data/images'
+import event_images from "../data/images";
+import { useNavigate } from "react-router-dom";
 
 export default function Events_comp() {
-  const [events, setevents] = useState<Events[]>([]);
-  const [loading, setloading] = useState<boolean>(true);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-  const get_eventImg = (id:number) => {
-    const image = event_images.find((img)=> img.id === id)
-    return image ? image.image : ''
-  }
+  const [events, setevents] = useState<Event[]>([]);
+  const [loading, setloading] = useState<boolean>(true);
+  const navigate = useNavigate();
+
+  const get_eventImg = (id: number) => {
+    const image = event_images.find((img) => img.id === id);
+    return image ? image.image : "";
+  };
 
   useEffect(() => {
     setloading(true);
@@ -69,21 +75,23 @@ export default function Events_comp() {
               <span className="stat-label">Eventos activos</span>
             </div>
             <div className="stat-card">
-              <span style={{color:'red'}} className="stat-number">Santander</span>
+              <span style={{ color: "red" }} className="stat-number">
+                Santander
+              </span>
               <span className="stat-label">Consigue cupón de descuento</span>
             </div>
           </div>
 
           <div className="events-grid">
-            {events.map((event:Events) => (
+            {events.map((event: Event) => (
               <div
                 key={event.id}
                 className={`event-card ${event.state === "active" ? "active" : "inactive"}`}
               >
                 <div className="event-card-header">
                   <div className="event-image-container">
-                    <img 
-                      src={get_eventImg(event.id)} 
+                    <img
+                      src={get_eventImg(event.id)}
                       alt={event.title}
                       className="event-image"
                     />
@@ -139,7 +147,12 @@ export default function Events_comp() {
                 </div>
 
                 <div className="event-card-footer">
-                  <button className="btn-secondary">Reservar lugar</button>
+                  <button
+                    onClick={() => navigate(`event/${event.title}`)}
+                    className="btn-secondary"
+                  >
+                    Reservar lugar
+                  </button>
                 </div>
               </div>
             ))}

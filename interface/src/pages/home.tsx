@@ -6,10 +6,8 @@ import Footer from "../components/footer";
 
 export default function Home() {
   useEffect(() => {
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  }, []);
+  window.scrollTo(0, 0);
+}, []);
   return (
     <div className="home">
       <Search_bar />

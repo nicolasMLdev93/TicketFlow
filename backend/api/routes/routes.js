@@ -21,7 +21,7 @@ router.post("/create_event", createEventChain(), validate_results, validate_toke
 // Get all events
 router.get("/events", get_events);
 // Filter events by name (with search bar in the frontend)
-router.get("/event_name/:title", createFindEventChain(), validate_results, validate_token, validate_existanceEvent_params, get_eventByName);
+router.get("/event_name/:title", createFindEventChain(), validate_results, validate_existanceEvent_params, get_eventByName);
 // Create ticket_types
 router.post("/ticket_type", createTicket_typeChain(), validate_results, validate_token, validate_existanceTicket_type, create_ticketType);
 // Get ticket_types by event_id
@@ -29,7 +29,7 @@ router.get("/ticket_type/:event_id", createFindTicket_typeChain(), validate_resu
 // Create order
 router.post("/create_order", createOrderChain(), validate_results, validate_token, validate_existanceUser, create_order);
 // Get event by name
-router.get("/events/:title", createFindEventChain(), validate_results, validate_token, get_event);
+router.get("/events/:title", createFindEventChain(), validate_results, get_event);
 // Get tickets by user
 router.get("/user_tickets/:user_id", createFindTicketsChain(), validate_results, validate_token, validate_existanceUser_params, get_userTickets);
 // Cancel tickets with soft delete

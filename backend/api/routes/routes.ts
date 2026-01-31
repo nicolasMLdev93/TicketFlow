@@ -74,7 +74,6 @@ router.get(
   "/event_name/:title",
   createFindEventChain(),
   validate_results,
-  validate_token,
   validate_existanceEvent_params,
   get_eventByName,
 );
@@ -109,7 +108,6 @@ router.get(
   "/events/:title",
   createFindEventChain(),
   validate_results,
-  validate_token,
   get_event,
 );
 // Get tickets by user

@@ -4,6 +4,8 @@ import Layout from "./components/layout";
 import Event from "./pages/event";
 import Login from "./pages/login";
 import NotFound404 from "./pages/not_found";
+import Checkout from "./pages/checkout";
+import Reservations from "./pages/reservations";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Route index element={<Home />} />
         <Route path="event/:title" element={<Event />} />
         <Route path="login" element={<Login />} />
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="reservations" element={<Reservations />} />
         <Route path="*" element={<NotFound404 />} />
       </Route>
     </Routes>

@@ -36,4 +36,27 @@ interface Event_img {
   image: string;
 }
 
-export type { Events_api, Event_img, TicketType_api, Event, Ticket_type };
+interface Initial_values {
+  vip_count: number;
+  common_count: number;
+  event_id: null | number;
+  total: number;
+}
+
+interface OrderData {
+  user_id: number;
+  total: GLfloat;
+  vip_count: number;
+  common_count: number;
+  event_id: number;
+}
+
+export type {
+  Events_api,
+  Event_img,
+  TicketType_api,
+  Event,
+  Ticket_type,
+  Initial_values,
+  OrderData,
+};

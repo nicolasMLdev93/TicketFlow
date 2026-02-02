@@ -213,7 +213,7 @@ const create_order = async (req, res) => {
         const new_order = await orders.create({
             user_id: user_id,
             purchase_date: date,
-            total: total + total * 0.1,
+            total: total + total * 0.01,
             state: "confirmed",
             payment_method: "card",
         });

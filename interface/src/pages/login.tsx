@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Footer from "../components/footer";
+import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
 export default function Login() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,6 +20,8 @@ export default function Login() {
   const [modalType, setModalType] = useState<"success" | "error">("error");
   const [showCredentialsModal, setShowCredentialsModal] =
     useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (event): void => {
     setFormData({
@@ -40,7 +47,7 @@ export default function Login() {
     setShowModal(true);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event): Promise<void> => {
     event.preventDefault();
     const { email, password } = formData;
     if (!email.trim() || !password.trim()) {
@@ -69,16 +76,18 @@ export default function Login() {
       if (response.ok) {
         showModalMessage("¡Bienvenido!", "success");
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user_id", data.user.id);
         handleClean();
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
       } else {
         setErrorMessage(data.error);
         showModalMessage(data.error);
         handleClean();
       }
     } catch (error) {
-      showModalMessage(
-        "Error de conexión. Inténtalo de nuevo más tarde.",
-      );
+      showModalMessage("Error de conexión. Inténtalo de nuevo más tarde.");
     } finally {
       setIsLoading(false);
     }

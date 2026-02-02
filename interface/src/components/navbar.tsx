@@ -10,11 +10,11 @@ import "../styles/navbar.css";
 export default function ButtonAppBar() {
   const navigate = useNavigate();
 
-  const handleHomeNavigation = () => {
+  const handleHomeNavigation = (): void => {
     navigate("/");
   };
 
-  const handleLoginNavigation = () => {
+  const handleLoginNavigation = (): void => {
     navigate("login");
   };
 
@@ -58,7 +58,10 @@ export default function ButtonAppBar() {
           <Box sx={{ flexGrow: 1 }} />
 
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <Person4Icon />
+            <Person4Icon
+              onClick={() => navigate("reservations")}
+              sx={{ cursor: "pointer" }}
+            />
             <button onClick={handleLoginNavigation} className="login_btn">
               Ingresar
             </button>

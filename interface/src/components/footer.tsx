@@ -24,9 +24,8 @@ export default function Footer() {
 
         <div className="footer-section">
           <ul className="footer-links">
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/eventos">Eventos</a></li>
-            <li><a href="/mis-reservas">Mis Reservas</a></li>
+            <li><a href="/">Eventos</a></li>
+            <li><a href="/reservations">Mis Reservas</a></li>
           </ul>
         </div>
 
@@ -69,9 +68,9 @@ export default function Footer() {
           © 2026 ticketFlow. Todos los derechos reservados.
         </div>
         <div className="footer-links-bottom">
-          <a href="/terminos">Términos y Condiciones</a>
-          <a href="/privacidad">Política de Privacidad</a>
-          <a href="/cookies">Política de Cookies</a>
+          <a >Términos y Condiciones</a>
+          <a >Política de Privacidad</a>
+          <a >Política de Cookies</a>
         </div>
       </div>
     </footer>

@@ -78,7 +78,7 @@ export default function Events_comp() {
               <span style={{ color: "red" }} className="stat-number">
                 Santander
               </span>
-              <span className="stat-label">Consigue cupón de descuento</span>
+              <span className="stat-label">Patrocinador</span>
             </div>
           </div>
 

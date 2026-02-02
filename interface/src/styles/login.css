@@ -219,14 +219,15 @@
 }
 
 .modal-content {
-  background-color: white;
+  background-color: rgb(63, 16, 16);
   border-radius: 15px;
   padding: 30px;
-  max-width: 400px;
+  max-width: 70% !important;
   width: 70%;
   text-align: center;
   position: relative;
   animation: modalSlideIn 0.3s ease-out;
+  margin-top: 50px !important;
 }
 
 @keyframes modalSlideIn {

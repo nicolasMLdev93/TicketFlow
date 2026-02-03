@@ -512,7 +512,7 @@ describe("Controlador Ticketing - Tests", () => {
       };
 
       mockTicketsFindOne.mockResolvedValue(mockTicket);
-      mockTicketsUpdate.mockResolvedValue([1]); 
+      mockTicketsUpdate.mockResolvedValue([1]);
 
       await cancel_ticket(req, res);
 

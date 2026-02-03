@@ -13,9 +13,16 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
-    "@types/node": "^25.0.10"
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.0.10",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
   },
   "scripts": {
-    "start": "node api/index.js"
+    "start": "node api/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   }
 }

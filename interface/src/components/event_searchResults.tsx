@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import filter_event from "../connections/filter_events";
 import type { Event } from "../types/interfaces";
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
 
 export default function Event_searchResults() {
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function Event_searchResults() {
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
-  const title = searchParams.get('title')
+  const title = searchParams.get("title");
 
   const get_eventImg = (id: number) => {
     const image = event_images.find((img) => img.id === id);
@@ -166,4 +166,3 @@ export default function Event_searchResults() {
     </div>
   );
 }
-

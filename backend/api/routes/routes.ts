@@ -115,7 +115,6 @@ router.get(
   "/user_tickets/:user_id",
   createFindTicketsChain(),
   validate_results,
-  validate_token,
   validate_existanceUser_params,
   get_userTickets,
 );

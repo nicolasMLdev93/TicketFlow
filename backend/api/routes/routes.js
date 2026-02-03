@@ -31,7 +31,7 @@ router.post("/create_order", createOrderChain(), validate_results, validate_toke
 // Get event by name
 router.get("/events/:title", createFindEventChain(), validate_results, get_event);
 // Get tickets by user
-router.get("/user_tickets/:user_id", createFindTicketsChain(), validate_results, validate_token, validate_existanceUser_params, get_userTickets);
+router.get("/user_tickets/:user_id", createFindTicketsChain(), validate_results, validate_existanceUser_params, get_userTickets);
 // Cancel tickets with soft delete
 router.patch("/cancel_ticket/:ticket_id", createCancelTicketsChain(), validate_results, validate_token, cancel_ticket);
 module.exports = router;

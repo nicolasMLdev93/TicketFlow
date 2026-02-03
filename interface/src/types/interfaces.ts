@@ -51,6 +51,27 @@ interface OrderData {
   event_id: number;
 }
 
+interface Tickets {
+  id: number;
+  order_id: number;
+  ticket_type_id: number;
+  issue_date: string;
+  state: string;
+  price: GLfloat;
+  qr_code: string;
+}
+
+interface Ticket_api {
+  tickets: Tickets[];
+  success: boolean;
+}
+
+interface Event_obj {
+  id: number;
+  title: string;
+  ticket_type_id: number[];
+}
+
 export type {
   Events_api,
   Event_img,
@@ -59,4 +80,7 @@ export type {
   Ticket_type,
   Initial_values,
   OrderData,
+  Tickets,
+  Ticket_api,
+  Event_obj,
 };

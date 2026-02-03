@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { where } from "sequelize";
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const {
@@ -331,7 +332,7 @@ export const cancel_ticket = async (
 ): Promise<void> => {
   const { ticket_id } = req.params;
   try {
-    const canceled_ticket = await tickets.update(
+    await tickets.update(
       { state: "canceled" },
       {
         where: {
@@ -339,7 +340,13 @@ export const cancel_ticket = async (
         },
       },
     );
-    await canceled_ticket.increment("available_quantity", { by: 1 });
+    const ticket_result = await tickets.findOne({
+      where: { id: ticket_id },
+    });
+    await ticket_types.increment("available_quantity", {
+      by: 1,
+      where: { id: ticket_result.ticket_type_id },
+    });
     res.status(200).json({ message: "Ticket canceled!", success: true });
   } catch (error) {
     res

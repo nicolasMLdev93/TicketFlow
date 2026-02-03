@@ -291,12 +291,18 @@ exports.get_userTickets = get_userTickets;
 const cancel_ticket = async (req, res) => {
     const { ticket_id } = req.params;
     try {
-        const canceled_ticket = await tickets.update({ state: "canceled" }, {
+        await tickets.update({ state: "canceled" }, {
             where: {
                 id: ticket_id,
             },
         });
-        await canceled_ticket.increment("available_quantity", { by: 1 });
+        const ticket_result = await tickets.findOne({
+            where: { id: ticket_id },
+        });
+        await ticket_types.increment("available_quantity", {
+            by: 1,
+            where: { id: ticket_result.ticket_type_id },
+        });
         res.status(200).json({ message: "Ticket canceled!", success: true });
     }
     catch (error) {

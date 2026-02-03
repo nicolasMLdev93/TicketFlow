@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import NotFound404 from "./pages/not_found";
 import Checkout from "./pages/checkout";
 import Reservations from "./pages/reservations";
+import Event_result from "./pages/event_result";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="reservations" element={<Reservations />} />
+        <Route path="event_results" element={<Event_result />} />
         <Route path="*" element={<NotFound404 />} />
       </Route>
     </Routes>

@@ -34,9 +34,9 @@ Node.js instalado
 Verificar versión: node --version
 
 🚀 Instalación y ejecución
-📦 Backend
-cd backend
-npm start
+📦 Backend: cd backend y luego npm start
+🎨 Frontend: cd frontend y luego npm run dev
+
 
 🗄️ Base de datos (Sequelize)
 Ejecutar migraciones: 
